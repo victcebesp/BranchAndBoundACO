@@ -1,39 +1,59 @@
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BranchAndBound {
 
-    private Node initialNode;
-    private int cota;
+    private final int finalVertex;
+    private int upperBound;
+    private List<Edge> graph;
 
-    public BranchAndBound(Node initialNode) {
-        this.initialNode = initialNode;
-        this.cota = Integer.MAX_VALUE;
+    public BranchAndBound(List<Edge> graph, int finalVertex) {
+        this.upperBound = Integer.MAX_VALUE;
+        this.graph = graph;
+        this.finalVertex = finalVertex;
     }
 
-    public Node [] search_minimum_route (int etapa, Node currentNode, int costeActual, Node [] solucion) {
+    public void search_minimum_route(int stage, int currentVertex, int pathCost, Route route) {
 
-        List<Node> currentNodeChildren = currentNode.expand();
-        currentNodeChildren.sort(Comparator.comparingInt(Node::getCost));
-        Node nodoPrometedor = currentNodeChildren.remove(0);
+        List<Edge> currentVertexChildren = getSortedChildrenFrom(currentVertex);
 
-        solucion[etapa] = nodoPrometedor;
+        Edge currentEdge = currentVertexChildren.get(0);
+        int nextStageVertex = currentEdge.getFinalVertex();
+        int currentEdgeCost = currentEdge.getCost();
 
-        //podar
-        if (costeActual + nodoPrometedor.getCost() >= this.cota) return solucion;
+        int nextBound = pathCost + currentEdgeCost;
 
-        if (nodoPrometedor.isFinal()) {
-            int siguienteCota = costeActual + nodoPrometedor.getCost();
-            if (siguienteCota < this.cota) this.cota = siguienteCota;
-            return solucion;
+        if (nextBound >= this.upperBound) return;
+
+        route.updateActualRoute(stage, currentEdge.getInitialVertex());
+
+        if (isFinal(nextStageVertex)) {
+            if (hasLessBound(nextBound)) {
+                this.upperBound = nextBound;
+                route.updateActualRoute(stage+1, nextStageVertex);
+                route.updateFinalRoute();
+            }
+        } else {
+            for (Edge eachNode : currentVertexChildren){
+                search_minimum_route(++stage, eachNode.getFinalVertex(), pathCost + eachNode.getCost(), route);
+            }
         }
+    }
 
-        else {
-            int etapaAux = etapa + 1;
-            int costeActualAux = costeActual + nodoPrometedor.getCost();
-            for (Node eachNode : currentNodeChildren)
-                search_minimum_route(etapaAux, eachNode, costeActualAux, solucion);
-            return solucion;
-        }
+    private boolean hasLessBound(int nextBound) {
+        return nextBound < this.upperBound;
+    }
+
+    private boolean isFinal(int nextStageVertex) {
+        return nextStageVertex == this.finalVertex;
+    }
+
+    private List<Edge> getSortedChildrenFrom(int currentNode) {
+        return graph.stream()
+                .filter(edge -> edge.getInitialVertex() == currentNode)
+                .sorted(Comparator.comparingInt(Edge::getCost))
+                .collect(Collectors.toList());
+
     }
 }

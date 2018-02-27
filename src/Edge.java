@@ -1,4 +1,4 @@
-public class Edge implements Comparable{
+public class Edge {
     private int cost;
     private final int initialVertex;
     private final int finalVertex;
@@ -21,26 +21,4 @@ public class Edge implements Comparable{
         return finalVertex;
     }
 
-    @Override
-    public String toString() {
-        return "Edge{" +
-                "cost=" + cost +
-                ", initialVertex=" + initialVertex +
-                ", finalVertex=" + finalVertex +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o){
-        Edge edge = (Edge) o;
-        return edge.getCost() == this.getCost() &&
-                edge.getInitialVertex() == this.getInitialVertex() &&
-                edge.getFinalVertex() == this.getFinalVertex();
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        Edge edge = (Edge) o;
-        return Integer.compare(this.getCost(), edge.getCost());
-    }
 }
