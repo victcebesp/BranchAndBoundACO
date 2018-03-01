@@ -37,6 +37,7 @@ public class BranchAndBound {
                 this.upperBound = nextBound;
                 route.updateActualRoute(stage+1, nextStageVertex);
                 route.updateFinalRoute();
+                route.setCost(upperBound);
             }
         } else {
             for (Edge eachNode : currentVertexChildren){

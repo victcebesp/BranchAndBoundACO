@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class BranchAndBoundTest {
 
@@ -20,6 +21,7 @@ public class BranchAndBoundTest {
         branchAndBound.search_minimum_route(0, 0, 0, route);
 
         assertArrayEquals(new int []{0}, route.getFinalRoute());
+        assertEquals(0, route.getCost());
     }
 
     @Test
@@ -35,6 +37,7 @@ public class BranchAndBoundTest {
         branchAndBound.search_minimum_route(0, 0, 0, route);
 
         assertArrayEquals(new int []{0, 1}, route.getFinalRoute());
+        assertEquals(2, route.getCost());
     }
 
 
