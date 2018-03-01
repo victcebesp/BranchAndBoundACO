@@ -41,7 +41,7 @@ public class BranchAndBound {
             }
         } else {
             for (Edge eachNode : currentVertexChildren){
-                search_minimum_route(++stage, eachNode.getFinalVertex(), pathCost + eachNode.getCost(), route);
+                search_minimum_route(stage + 1, eachNode.getFinalVertex(), pathCost + eachNode.getCost(), route);
             }
         }
     }
