@@ -21,4 +21,12 @@ public class Edge {
         return finalVertex;
     }
 
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "cost=" + cost +
+                ", initialVertex=" + initialVertex +
+                ", finalVertex=" + finalVertex +
+                '}';
+    }
 }
