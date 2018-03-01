@@ -1,18 +1,9 @@
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-
-//        Edge edge01 = new Edge(0, 1, 4);
-//        Edge edge02 = new Edge(0, 2, 1);
-//        Edge edge13 = new Edge(1, 3, 2);
-//        Edge edge23 = new Edge(2, 4, 1);
-//        Edge edge25 = new Edge(2, 5, 2);
-//        Edge edge43 = new Edge(4, 3, 3);
-//        Edge edge53 = new Edge(5, 3, 1);
 
         Edge edge01 = new Edge(0, 1, 1);
         Edge edge02 = new Edge(0, 2, 3);
