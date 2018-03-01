@@ -59,4 +59,24 @@ public class BranchAndBoundTest {
         assertEquals(2, route.getCost());
     }
 
+    @Test
+    public void diamond_shape_graph_return_three_step_route(){
+
+        Edge edge01 = new Edge(0, 1, 3);
+        Edge edge02 = new Edge(0, 2, 2);
+        Edge edge13 = new Edge(1, 3, 1);
+        Edge edge23 = new Edge(2, 3, 3);
+        List<Edge> graph = Arrays.asList(edge01, edge02, edge13, edge23);
+
+        int maxRouteSize = 3;
+
+        Route route = new Route(maxRouteSize);
+
+        BranchAndBound branchAndBound = new BranchAndBound(graph, 3);
+        branchAndBound.search_minimum_route(0, 0, 0, route);
+
+        assertArrayEquals(new int []{0, 1, 3}, route.getFinalRoute());
+        assertEquals(4, route.getCost());
+    }
+
 }
