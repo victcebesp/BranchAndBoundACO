@@ -40,8 +40,8 @@ public class BranchAndBound {
                 route.setCost(upperBound);
             }
         } else {
-            for (Edge eachNode : currentVertexChildren){
-                search_minimum_route(stage + 1, eachNode.getFinalVertex(), pathCost + eachNode.getCost(), route);
+            for (Edge eachEdge : currentVertexChildren){
+                search_minimum_route(stage + 1, eachEdge.getFinalVertex(), pathCost + eachEdge.getCost(), route);
             }
         }
     }

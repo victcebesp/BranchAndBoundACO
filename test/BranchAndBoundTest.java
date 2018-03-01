@@ -79,4 +79,6 @@ public class BranchAndBoundTest {
         assertEquals(4, route.getCost());
     }
 
+
+
 }
