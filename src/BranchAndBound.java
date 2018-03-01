@@ -13,7 +13,7 @@ public class BranchAndBound {
         this.upperBound = Integer.MAX_VALUE;
         this.graph = graph;
         this.finalVertex = finalVertex;
-        this.isNotAValidGraph = graph.size() == 1;
+        this.isNotAValidGraph = isNotValidGraph(graph);
     }
 
     public void search_minimum_route(int stage, int currentVertex, int pathCost, Route route) {
@@ -59,5 +59,9 @@ public class BranchAndBound {
                 .sorted(Comparator.comparingInt(Edge::getCost))
                 .collect(Collectors.toList());
 
+    }
+
+    private boolean isNotValidGraph(List<Edge> graph) {
+        return graph.size() == 1 && graph.get(0).getInitialVertex() == graph.get(0).getFinalVertex();
     }
 }
