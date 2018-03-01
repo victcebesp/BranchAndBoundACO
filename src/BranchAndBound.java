@@ -7,14 +7,18 @@ public class BranchAndBound {
     private final int finalVertex;
     private int upperBound;
     private List<Edge> graph;
+    private final boolean isNotAValidGraph;
 
     public BranchAndBound(List<Edge> graph, int finalVertex) {
         this.upperBound = Integer.MAX_VALUE;
         this.graph = graph;
         this.finalVertex = finalVertex;
+        this.isNotAValidGraph = graph.size() == 1;
     }
 
     public void search_minimum_route(int stage, int currentVertex, int pathCost, Route route) {
+
+        if (isNotAValidGraph) return;
 
         List<Edge> currentVertexChildren = getSortedChildrenFrom(currentVertex);
 
